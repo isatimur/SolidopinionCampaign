@@ -15,14 +15,12 @@ import static org.hamcrest.Matchers.is;
  * @author Timur Isachenko {@literal <tisachenko@at-consulting.ru>} on 09.07.2017.
  */
 public class CampaignReaderTest {
+    public static final String NO_CAMPAIGN = "no campaign";
     Stream<String> lines;
     Stream<String> inputLines;
-    CampaignReader campaignReader;
 
     @Before
-    public void setUp() throws Exception {
-        String pathToInputFIle = "newInput.txt";
-
+    public void setUp() {
         lines = Stream.of(
                 "campaign_a 3 4 10 2",
                 "campaign_b 9 14 15 21 3",
@@ -48,6 +46,6 @@ public class CampaignReaderTest {
                 "campaign_b 9 14 15 21 3",
                 "campaign_c 12 1024 200 3 9 4");
         optionals = CampaignReader.solution(lines, Stream.of("6 9000 29833 65000"));
-        assertThat("no campaign", is(optionals.get(0).map(Map.Entry<String, Long>::getKey).orElse("no campaign")));
+        assertThat(NO_CAMPAIGN, is(optionals.get(0).map(Map.Entry<String, Long>::getKey).orElse(NO_CAMPAIGN)));
     }
 }

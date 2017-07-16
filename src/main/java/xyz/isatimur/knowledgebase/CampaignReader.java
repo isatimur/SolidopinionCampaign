@@ -24,6 +24,7 @@ import static java.util.stream.Collectors.toSet;
 /**
  * @author Timur Isachenko {@literal <tisachenko@at-consulting.ru>} on 06.07.2017.
  */
+@SuppressWarnings("HideUtilityClassConstructor")
 public class CampaignReader {
     private static final Comparator<Map.Entry<String, Long>> COMPARATOR_ENTRY_VALUE =
             Comparator.comparing((Map.Entry<String, Long> e) -> e.getValue());
@@ -35,10 +36,13 @@ public class CampaignReader {
      * @param args here we should provide two strings paths to our input data
      * @throws IOException if no files 've been found
      */
+    @SuppressWarnings("UncommentedMain")
     public static void main(String[] args) throws IOException {
 
-        String pathToCampaignFile = null;
-        String pathToInputFIle = null;
+        //here we validate if input arguments have been provided,
+        // otherwise using txt files by default
+        String pathToCampaignFile;
+        String pathToInputFIle;
         if (args != null && args.length == 2) {
             pathToCampaignFile = args[0];
             pathToInputFIle = args[1];
@@ -91,6 +95,12 @@ public class CampaignReader {
 
     }
 
+    /**
+     * Just a way of logging any entry of groups of campaign.
+     *
+     * @param e this is an {@link java.util.Map.Entry} which brings name of campaign
+     *          and amount of times it appeared at segments.
+     */
     private static void logging(Optional<Map.Entry<String, Long>> e) {
         LOGGER.info(e.map(Map.Entry<String, Long>::getKey).orElse("no campaign"));
     }
